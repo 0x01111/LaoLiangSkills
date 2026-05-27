@@ -1,0 +1,35 @@
+{
+  "name": "laoliang-skills",
+  "version": "1.0.0",
+  "description": "老梁（梁宏达）风格评论技能包 —— 一套 AI 辅助写作技能模板，涵盖语言表达、历史解读、社会评论、体育评论、故事叙述、逻辑思维、娱乐评论七大模块",
+  "keywords": [
+    "claude-code",
+    "skills",
+    "ai-skills",
+    "writing",
+    "commentary",
+    "老梁",
+    "梁宏达",
+    "写作模板",
+    "评论技巧",
+    "prompt-engineering"
+  ],
+  "author": "mingxing.li",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "files": [
+    "skills/",
+    "examples/",
+    "postinstall.js",
+    "README.md"
+  ],
+  "bin": {
+    "laoliang-skills": "./bin/cli.js"
+  },
+  "scripts": {
+    "postinstall": "node postinstall.js"
+  }
+}
