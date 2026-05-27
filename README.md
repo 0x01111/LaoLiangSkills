@@ -6,25 +6,48 @@
 
 ## 安装
 
-### 通过 npm 安装（推荐）
+### 通过 GitHub 安装（推荐）
+
+直接从 GitHub 仓库安装，无需发布到 npm registry：
 
 ```bash
 # 全局安装
-npm install -g laoliang-skills
+npm install -g github:0x01111/LaoLiangSkills
 
-# 安装后会自动注册到 Claude Code
-# 也可手动管理：
-laoliang-skills install     # 注册技能到 Claude Code
-laoliang-skills uninstall   # 从 Claude Code 移除
-laoliang-skills list        # 查看所有技能模块
-laoliang-skills path        # 查看技能目录路径
+# 或者指定分支
+npm install -g github:0x01111/LaoLiangSkills#master
 ```
 
-### 本地安装
+安装后自动注册到 Claude Code，也可手动管理：
 
 ```bash
-npm install laoliang-skills --save-dev
+laoliang-skills install     # 注册技能到 ~/.claude/skills/laoliang/
+laoliang-skills uninstall   # 从 Claude Code 移除
+laoliang-skills list        # 查看所有技能模块
+laoliang-skills path        # 查看技能包路径
+```
+
+### 本地开发安装
+
+```bash
+git clone https://github.com/0x01111/LaoLiangSkills.git
+cd LaoLiangSkills
+npm link                    # 链接到全局，即可使用 laoliang-skills 命令
+laoliang-skills install
+```
+
+### 作为项目依赖
+
+```bash
+# 通过 GitHub 安装为项目依赖
+npm install --save-dev github:0x01111/LaoLiangSkills
 npx laoliang-skills install
+```
+
+### 通过 npm registry 安装（发布后）
+
+```bash
+npm install -g laoliang-skills
 ```
 
 ---
