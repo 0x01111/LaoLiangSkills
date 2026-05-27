@@ -6,17 +6,39 @@
 
 ## 安装
 
-### 通过 GitHub 安装（推荐）
-
-直接从 GitHub 仓库安装，无需发布到 npm registry：
+### 方式一：GitHub 直接安装（推荐，无需认证）
 
 ```bash
-# 全局安装
 npm install -g github:0x01111/LaoLiangSkills
-
-# 或者指定分支
-npm install -g github:0x01111/LaoLiangSkills#master
 ```
+
+### 方式二：GitHub Packages 安装
+
+先配置 `.npmrc`（项目根目录或 `~/.npmrc`）：
+
+```ini
+@0x01111:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=你的GitHub_Token
+```
+
+然后安装：
+
+```bash
+npm install -g @0x01111/laoliang-skills
+```
+
+> GitHub Token 创建：GitHub Settings → Developer settings → Personal access tokens → 勾选 `read:packages`
+
+### 方式三：本地开发
+
+```bash
+git clone https://github.com/0x01111/LaoLiangSkills.git
+cd LaoLiangSkills
+npm link
+laoliang-skills install
+```
+
+---
 
 安装后自动注册到 Claude Code，也可手动管理：
 
@@ -27,27 +49,22 @@ laoliang-skills list        # 查看所有技能模块
 laoliang-skills path        # 查看技能包路径
 ```
 
-### 本地开发安装
+---
+
+## 发布（维护者）
 
 ```bash
-git clone https://github.com/0x01111/LaoLiangSkills.git
-cd LaoLiangSkills
-npm link                    # 链接到全局，即可使用 laoliang-skills 命令
-laoliang-skills install
-```
+# 1. 设置 GitHub Token（需要有 write:packages 权限）
+export GITHUB_TOKEN=ghp_xxxxxxxxxxxx
 
-### 作为项目依赖
+# 2. 登录 GitHub Packages
+npm login --registry=https://npm.pkg.github.com
+# Username: 你的 GitHub 用户名
+# Password: 你的 GITHUB_TOKEN
+# Email: 你的邮箱
 
-```bash
-# 通过 GitHub 安装为项目依赖
-npm install --save-dev github:0x01111/LaoLiangSkills
-npx laoliang-skills install
-```
-
-### 通过 npm registry 安装（发布后）
-
-```bash
-npm install -g laoliang-skills
+# 3. 发布
+npm publish
 ```
 
 ---
