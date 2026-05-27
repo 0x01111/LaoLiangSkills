@@ -40,10 +40,15 @@ laoliang-skills install
 
 ---
 
-安装后自动注册到 Claude Code，也可手动管理：
+安装后需执行一次注册：
 
 ```bash
 laoliang-skills install     # 注册技能到 ~/.claude/skills/laoliang/
+```
+
+其他管理命令：
+
+```bash
 laoliang-skills uninstall   # 从 Claude Code 移除
 laoliang-skills list        # 查看所有技能模块
 laoliang-skills path        # 查看技能包路径

@@ -26,13 +26,10 @@
   "files": [
     "skills/",
     "examples/",
-    "postinstall.js",
     "README.md"
   ],
   "bin": {
     "laoliang-skills": "./bin/cli.js"
   },
-  "scripts": {
-    "postinstall": "node postinstall.js"
-  }
+  "scripts": {}
 }
