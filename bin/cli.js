@@ -17,6 +17,7 @@ const os = require('os');
 const PACKAGE_NAME = 'laoliang-skills';
 const SKILLS_SRC = path.join(__dirname, '..', 'skills');
 const SKILLS_DEST = path.join(os.homedir(), '.claude', 'skills', 'laoliang');
+const SKILLS_SETTINGS = path.join(os.homedir(), '.claude', 'settings.json');
 
 function ensureDir(dir) {
   if (!fs.existsSync(dir)) {
@@ -44,6 +45,42 @@ function removeDir(dir) {
   }
 }
 
+function readSettings() {
+  if (fs.existsSync(SKILLS_SETTINGS)) {
+    try {
+      return JSON.parse(fs.readFileSync(SKILLS_SETTINGS, 'utf-8'));
+    } catch {
+      return {};
+    }
+  }
+  return {};
+}
+
+function writeSettings(settings) {
+  fs.writeFileSync(SKILLS_SETTINGS, JSON.stringify(settings, null, 2) + '\n');
+}
+
+function registerSkills() {
+  const settings = readSettings();
+  if (!settings.skills) settings.skills = {};
+  settings.skills.laoliang = SKILLS_DEST;
+  writeSettings(settings);
+  console.log(`Registered skills in ${SKILLS_SETTINGS}`);
+}
+
+function unregisterSkills() {
+  if (!fs.existsSync(SKILLS_SETTINGS)) return;
+  const settings = readSettings();
+  if (settings.skills && settings.skills.laoliang) {
+    delete settings.skills.laoliang;
+    if (Object.keys(settings.skills).length === 0) {
+      delete settings.skills;
+    }
+    writeSettings(settings);
+    console.log(`Removed skills registration from ${SKILLS_SETTINGS}`);
+  }
+}
+
 function install() {
   console.log(`Installing ${PACKAGE_NAME} skills...`);
   if (!fs.existsSync(SKILLS_SRC)) {
@@ -52,6 +89,7 @@ function install() {
   }
   removeDir(SKILLS_DEST);
   copyDir(SKILLS_SRC, SKILLS_DEST);
+  registerSkills();
 
   const categories = fs.readdirSync(SKILLS_SRC, { withFileTypes: true })
     .filter(d => d.isDirectory());
@@ -65,12 +103,13 @@ function install() {
       console.log(`    - ${f}`);
     }
   }
-  console.log(`\nSkills registered at: ${SKILLS_DEST}`);
+  console.log(`\nSkills copied to: ${SKILLS_DEST}`);
 }
 
 function uninstall() {
   console.log(`Uninstalling ${PACKAGE_NAME} skills...`);
   removeDir(SKILLS_DEST);
+  unregisterSkills();
   console.log(`Removed: ${SKILLS_DEST}`);
 }
 
